@@ -34,27 +34,29 @@
             <p class="login-box-msg">Register a new membership</p>
 
             <form action="register.php" method="post">
+                <?php include('errors.php'); ?>
+                
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="Full name">
+                    <input type="text" class="form-control" placeholder="Full name" name="username">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <!-- Give error if field empty when submit -->
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" id="datepicker" placeholder="Date of birth">
+                    <input type="text" class="form-control" id="datepicker" placeholder="Date of birth" name="birth_date">
                 </div>
                 <!-- Give error if age under 18yo can't register -->
                 <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="Email">
+                    <input type="email" class="form-control" placeholder="Email" name="email">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <!-- Give error if email regex not valid -->
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Password" name="password_1">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <!-- Give error if field empty when submit -->
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Retype password">
+                    <input type="password" class="form-control" placeholder="Retype password" name="password_2">
                     <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
                 </div>
                 <!-- Give error if password not match -->
@@ -67,7 +69,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" name="reg_user">Register</button>
                     </div>
                 </div>
             </form>
@@ -88,7 +90,7 @@
             $('input').iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
-                increaseArea: '20%' /* optional */
+                increaseArea: '20%'
             });
         });
 

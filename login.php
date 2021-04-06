@@ -31,6 +31,8 @@
             <p class="login-box-msg">Sign in to start your session</p>
 
             <form action="login.php" method="post">
+                <?php include('errors.php'); ?>
+
                 <div class="form-group has-feedback">
                     <input type="email" class="form-control" placeholder="Email">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -49,7 +51,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" name="login_user">Sign In</button>
                     </div>
                 </div>
             </form>
@@ -69,7 +71,7 @@
             $('input').iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
-                increaseArea: '20%' /* optional */
+                increaseArea: '20%'
             });
         });
     </script>
