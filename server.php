@@ -16,7 +16,7 @@
         $password2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
         if (empty($name)) {
-            array_push($errors, "Username is required"); 
+            array_push($errors, "Name is required"); 
         }
 
         if (empty($email)) {
@@ -39,14 +39,11 @@
             array_push($errors, "The passwords do not match");
         }
 
-        $user_check_query = "SELECT * FROM users WHERE username='$name' OR email='$email' LIMIT 1";
+        $user_check_query = "SELECT * FROM users WHERE email='$email' LIMIT 1";
         $result = mysqli_query($db, $user_check_query);
         $user = mysqli_fetch_assoc($result);
 
         if ($user) {
-            if ($user['username'] === $name) {
-                array_push($errors, "Username already exists");
-            }
             if ($user['email'] === $email) {
                 array_push($errors, "Email already exists");
             }
@@ -54,11 +51,11 @@
 
         if (count($errors) == 0) {
             $password = md5($password1);
-            $query = "INSERT INTO users (username, email, password, DateOfBirth) VALUES('$name', '$email', '$password', '$birthDate')";
+            $query = "INSERT INTO users (name, email, password, birth_date) VALUES('$name', '$email', '$password', '$birthDate')";
             mysqli_query($db, $query);
             $_SESSION['email'] = $email;
             $_SESSION['success'] = "You are now logged in";
-            header('location: index.html');
+            header('location: index.php');
         }
     }
 
@@ -81,7 +78,7 @@
             if (mysqli_num_rows($results) == 1) {
                 $_SESSION['email'] = $email;
                 $_SESSION['success'] = "You are now logged in";
-                header('location: index.html');
+                header('location: index.php');
             }else {
                 array_push($errors, "Wrong email/password combination");
             }
