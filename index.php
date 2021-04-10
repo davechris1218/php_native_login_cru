@@ -1,15 +1,15 @@
 <?php
-session_start();
+    session_start();
 
-if (!isset($_SESSION['email'])) {
-    $_SESSION['msg'] = "You must log in first";
-    header('location: login.php');
-}
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['email']);
-    header("location: login.php");
-}
+    if (!isset($_SESSION['email'])) {
+        $_SESSION['msg'] = "You must log in first";
+        header('location: login.php');
+    }
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        unset($_SESSION['email']);
+        header("location: login.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -47,24 +47,7 @@ if (isset($_GET['logout'])) {
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="content">
-        <?php if (isset($_SESSION['success'])) : ?>
-            <div class="error success">
-                <h3>
-                    <?php
-                    echo $_SESSION['success'];
-                    unset($_SESSION['success']);
-                    ?>
-                </h3>
-            </div>
-        <?php endif ?>
 
-        <?php if (isset($_SESSION['email'])) : ?>
-            <p>Welcome <strong><?php echo $_SESSION['email']; ?></strong></p>
-            <p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
-        <?php endif ?>
-    </div>
-    
     <div class="wrapper">
 
         <header class="main-header">
@@ -326,7 +309,7 @@ if (isset($_GET['logout'])) {
                         <!-- Control Sidebar Toggle Button -->
                         <li>
                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
+                        </li>   
                     </ul>
                 </div>
             </nav>
@@ -523,10 +506,8 @@ if (isset($_GET['logout'])) {
                         </ul>
                     </li>
                     <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-                    <li class="header">LABELS</li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+                    <li class="header">USER CONTROL</li>
+                    <li><a href="index.php?logout='1'"><i class="fa fa-circle-o text-red"></i> <span>Logout</span></a></li>
                 </ul>
             </section>
             <!-- /.sidebar -->

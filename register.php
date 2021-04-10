@@ -9,7 +9,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -27,14 +27,17 @@
 <body class="hold-transition register-page">
     <div class="register-box">
         <div class="register-logo">
-            <a href="https://adminlte.io/themes/AdminLTE/index2.html"><b>Admin</b>LTE</a>
+            <a href="index.php"><b>Admin</b>LTE</a>
         </div>
 
         <div class="register-box-body">
-            <p class="login-box-msg">Register a new membership</p>
+            <h4 class="login-box-msg">Register a new membership</h4>
 
             <form action="register.php" method="post">
                 <?php include('errors.php'); ?>
+                <style><?php include 'style.css'; ?></style>
+
+                <br>
                 
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" placeholder="Full name" name="username">
@@ -43,6 +46,7 @@
                 <!-- Give error if field empty when submit -->
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="datepicker" placeholder="Date of birth" name="birth_date">
+                    <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
                 </div>
                 <!-- Give error if age under 18yo can't register -->
                 <div class="form-group has-feedback">
@@ -57,7 +61,7 @@
                 <!-- Give error if field empty when submit -->
                 <div class="form-group has-feedback">
                     <input type="password" class="form-control" placeholder="Retype password" name="password_2">
-                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <!-- Give error if password not match -->
                 <div class="row">
@@ -94,7 +98,7 @@
             });
         });
 
-        $("#datepicker").datepicker({
+        $('#datepicker').datepicker({
             dateFormat: "yy-mm-dd"
         });
     </script>
