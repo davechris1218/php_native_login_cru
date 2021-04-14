@@ -531,9 +531,7 @@ if (isset($_GET['logout'])) {
 
                         <div class="box">
                             <div class="box-header">
-                                <a href="create.php">
-                                    <input type="button" value="Add" class="btn btn-primary" name="">
-                                </a>
+                                <p class="text-left"><a href="javascript.void(0)" class="btn btn-success" data-target="#ModalAdd" data-toggle="modal">Add Data</a></p>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -548,33 +546,96 @@ if (isset($_GET['logout'])) {
                                             <th>Image</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
+                                    <tbody id="modal-data">
                                         <?php
-                                        include "server.php";
-                                        $result = mysqli_query($mysqli, "select * from user_table");
-                                        $num = 1;
-                                        while ($row = mysqli_fetch_array($result)) {
+
+                                        include "connect.php";
+                                        $x = 0;
+                                        $modal = mysqli_query($connect, "SELECT * FROM user_item ORDER BY id DESC");
+                                        while ($r = mysqli_fetch_array($modal)) {
+                                            $x++;
+
                                         ?>
                                             <tr>
-                                                <td><?php echo $num;
-                                                    $num++; ?></td>
-                                                <td><?php echo $row['name'] ?></td>
-                                                <td><?php echo $row['type'] ?></td>
-                                                <td><?php echo $row['description'] ?></td>
-                                                <td><?php echo $row['price'] ?></td>
-                                                <td><?php echo $row['image'] ?></td>
-
-                                                <td><a href="index.php?hal=edit_siswa&id=<?php echo $row['id'] ?>"><button type="button" class="btn btn-warning" name=""> <i class="fa fa-pencil"></i> Edit</button></a>
-                                                    <a onclick="return confirm('Are you sure to change data?')" href="delete.php?id=<?php echo $row['id'] ?>">
-                                                        <button type="button" class="btn btn-danger" name=""> <i class="fa fa-trash"></i> Delete</button></a>
+                                                <td><?php echo $x; ?></td>
+                                                <td><?php echo  $r['item_name']; ?></td>
+                                                <td><?php echo  $r['description']; ?></td>
+                                                <td>
+                                                    <a href="javascript:void(0)" class='open_modal' id='<?php echo  $r['modal_id']; ?>'>Edit</a>
+                                                    <a href="javascript:void(0)" class="delete_modal" data-id='<?php echo  $r['modal_id']; ?>'>Delete</a>
                                                 </td>
                                             </tr>
+
                                         <?php } ?>
-                                        </tfoot>
+                                    </tbody>
                                 </table>
                             </div>
                             <!-- /.box-body -->
+                            <div id="ModalAdd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Add Data</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form id="form-save" action="save.php" name="modal_popup" enctype="multipart/form-data" method="POST">
+
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    <label for="Name">Name</label>
+                                                    <input type="text" name="item_name" id="item-name" class="form-control" placeholder="Name" required />
+                                                </div>
+
+                                                <div class="row menu-position">
+                                                    <div class="col-md-3">
+                                                        <select class="form-select form-select-lg mb-3">
+                                                            <option value="Food">Food</option>
+                                                            <option value="Drink">Drink</option>
+                                                        </select>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-3">
+                                                        <select class="form-select form-select-lg mb-3 type-select type"></select>
+                                                    </div>
+                                                    <div class="col-md-3" style="overflow: hidden;">
+                                                        <h2 style="float: left;">Qty :</h2>
+                                                        <input type="number" class="form-control form-control-lg mb-3 qty" style="float: right; width: 180px;" value="1" min="1">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    <label for="Description">Description</label>
+                                                    <textarea rows="4" cols="50" name="description"></textarea>
+                                                </div>
+
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    <label for="Price">Price</label>
+                                                    <input type="text" name="item_price" id="item-price" class="form-control" placeholder="Price" required />
+                                                </div>
+
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    <label for="Image">Image</label>
+                                                    <input type="file" name="myImage" accept="image/x-png,image/gif,image/jpeg" />
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-success" type="submit">
+                                                        Save
+                                                    </button>
+
+                                                    <button type="reset" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.box -->
                     </div>
@@ -584,200 +645,6 @@ if (isset($_GET['logout'])) {
             </section>
             <!-- /.content -->
         </div>
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark" style="display: none;">
-            <!-- Create the tabs -->
-            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <!-- Home tab content -->
-                <div class="tab-pane" id="control-sidebar-home-tab">
-                    <h3 class="control-sidebar-heading">Recent Activity</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                    <p>Will be 23 on April 24th</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                                    <p>New phone +1(800)555-1234</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                                    <p>nora@example.com</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                                    <p>Execution time 5 seconds</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.control-sidebar-menu -->
-
-                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h4 class="control-sidebar-subheading">
-                                    Custom Template Design
-                                    <span class="label label-danger pull-right">70%</span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h4 class="control-sidebar-subheading">
-                                    Update Resume
-                                    <span class="label label-success pull-right">95%</span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h4 class="control-sidebar-subheading">
-                                    Laravel Integration
-                                    <span class="label label-warning pull-right">50%</span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h4 class="control-sidebar-subheading">
-                                    Back End Framework
-                                    <span class="label label-primary pull-right">68%</span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.control-sidebar-menu -->
-
-                </div>
-                <!-- /.tab-pane -->
-                <!-- Stats tab content -->
-                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-                <!-- /.tab-pane -->
-                <!-- Settings tab content -->
-                <div class="tab-pane" id="control-sidebar-settings-tab">
-                    <form method="post">
-                        <h3 class="control-sidebar-heading">General Settings</h3>
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Report panel usage
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-
-                            <p>
-                                Some information about this general settings option
-                            </p>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Allow mail redirect
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-
-                            <p>
-                                Other sets of options are available
-                            </p>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Expose author name in posts
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-
-                            <p>
-                                Allow the user to show his name in blog posts
-                            </p>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Show me as online
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Turn off notifications
-                                <input type="checkbox" class="pull-right">
-                            </label>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Delete chat history
-                                <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-                            </label>
-                        </div>
-                        <!-- /.form-group -->
-                    </form>
-                </div>
-                <!-- /.tab-pane -->
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-        <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
     </div>
     <!-- ./wrapper -->
 
