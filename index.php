@@ -597,14 +597,6 @@ if (isset($_GET['logout'])) {
                                                             <option value="Drink">Drink</option>
                                                         </select>
                                                     </div>
-                                                    <br>
-                                                    <div class="col-md-3">
-                                                        <select class="form-select form-select-lg mb-3 type-select type"></select>
-                                                    </div>
-                                                    <div class="col-md-3" style="overflow: hidden;">
-                                                        <h2 style="float: left;">Qty :</h2>
-                                                        <input type="number" class="form-control form-control-lg mb-3 qty" style="float: right; width: 180px;" value="1" min="1">
-                                                    </div>
                                                 </div>
 
                                                 <div class="form-group" style="padding-bottom: 20px;">
