@@ -1,7 +1,7 @@
 <?php
 	include "connect.php";
 	$userId=$_POST['id'];
-	$query=mysqli_query($connect,"DELETE FROM item_user WHERE id='$userId'");
+	$query=mysqli_query($connect,"DELETE FROM user_item WHERE id='$userId'");
 	
 	
 	if($query)
