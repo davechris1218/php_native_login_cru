@@ -202,7 +202,7 @@ if (isset($_GET['logout'])) {
 
                                                 <div class="form-group" style="padding-bottom: 20px;">
                                                     <label for="Image">Image</label>
-                                                    <input type="file" name="myImage" accept="image/x-png,image/gif,image/jpeg" />
+                                                    <input type="file" name="item_image" accept="image/x-png,image/gif,image/jpeg" />
                                                 </div>
 
                                                 <div class="modal-footer">
