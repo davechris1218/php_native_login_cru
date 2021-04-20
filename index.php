@@ -182,7 +182,7 @@ if (isset($_GET['logout'])) {
                                                     <div class="col-md-3">
                                                         <label for="Type">Type</label>
                                                         <br>
-                                                        <select class="form-select form-select-lg mb-3">
+                                                        <select class="form-select form-select-lg mb-3" name="item_type">
                                                             <option value="Food">Food</option>
                                                             <option value="Drink">Drink</option>
                                                         </select>
