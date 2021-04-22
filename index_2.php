@@ -48,24 +48,34 @@ if (isset($_GET['logout'])) {
 
 <body class="hold-transition skin-blue sidebar-mini layout-fixed">
 
-    <div class="wrapper">
-        <?php echo '<div id="thumb"><ul>';
-
-        $query = ("SELECT * FROM user_item");
-        $result = mysql_query($query);
-        
-        while ($item = mysql_fetch_array($result)) {
-            $itemName = $item['item_name'];
-            echo '<li><P>' . $item['item_name'] . '</P>';
-            echo '<img src="' . $item['item_image'] . '" alt="item" />';
-            echo '</li>';
+    <div class="column-wrapper">
+    <style><?php include 'style.css'; ?></style>
+        <?php
+        while ($row = $result->fetch_assoc()) {
+            display($row['item_image'], $row['item_name'], $row['description'], $row['item_price']);
         }
 
-        echo '</ul></div>'; ?>
-        <style>
-            <?php include 'style.css'; ?>
-        </style>
+
+        function display($image, $name, $description, $price)
+        {
+            echo '<div class="flip-card grid-item">
+            <div class="column">
+            <div class="column">
+            <p>' . $image . '</p>
+            </div>
+            <div class="column">
+            <h1> ' . $name . '</h1> 
+            <p>' . $description . '</p>
+            <p>' . $price . '</p>
+            </div>
+            </div>
+            </div>';
+        }
+        
+        ?>
+
     </div>
+
     <!-- ./wrapper -->
 
     <!-- jQuery 3 -->
