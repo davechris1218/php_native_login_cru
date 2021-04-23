@@ -1,7 +1,7 @@
 <?php
 include "connect.php";
 $userId = $_GET['id'];
-$modal = mysqli_query($connect, "SELECT * FROM item_user WHERE id='$userId'");
+$modal = mysqli_query($connect, "SELECT * FROM user_item WHERE id='$userId'");
 while ($r = mysqli_fetch_array($modal)) {
 ?>
 
@@ -20,7 +20,8 @@ while ($r = mysqli_fetch_array($modal)) {
 
 					<div class="form-group" style="padding-bottom: 20px;">
 						<label for="Name">Name</label>
-						<input type="text" name="item_name" id="item-name" class="form-control" placeholder="Name" required />
+						<input type="hidden" name="id" id="edit-id" class="form-control" value="<?php echo $r['id']; ?>"/>
+						<input type="text" name="item_name" id="edit-name" class="form-control" value="<?php echo $r['modal_name']; ?>" required />
 					</div>
 
 					<div class="row form-group" style="padding-bottom: 20px;">
@@ -36,7 +37,7 @@ while ($r = mysqli_fetch_array($modal)) {
 
 					<div class="form-group" style="padding-bottom: 20px;">
 						<label for="Description">Description</label>
-						<textarea rows="4" cols="50" name="description"></textarea>
+						<textarea rows="4" cols="50" name="description" id="edit-description" class="form-control" value="<?php echo $r['description']; ?>" required /> </textarea>
 					</div>
 
 					<div class="form-group" style="padding-bottom: 20px;">

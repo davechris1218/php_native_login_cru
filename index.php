@@ -123,7 +123,7 @@ if (isset($_GET['logout'])) {
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="datatable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -149,8 +149,8 @@ if (isset($_GET['logout'])) {
                                                 <td><?php echo  $r['item_name']; ?></td>
                                                 <td><?php echo  $r['description']; ?></td>
                                                 <td>
-                                                    <a href="javascript:void(0)" class='open_modal' id='<?php echo  $r['modal_id']; ?>'>Edit</a>
-                                                    <a href="javascript:void(0)" class="delete_modal" data-id='<?php echo  $r['modal_id']; ?>'>Delete</a>
+                                                    <a href="javascript:void(0)" class='open_modal' id='<?php echo  $r['id']; ?>'>Edit</a>
+                                                    <a href="javascript:void(0)" class="delete_modal" data-id='<?php echo  $r['id']; ?>'>Delete</a>
                                                 </td>
                                             </tr>
 
@@ -220,6 +220,27 @@ if (isset($_GET['logout'])) {
                                 </div>
                             </div>
                         </div>
+                        <div id="ModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                        </div>
+
+                        <div class="modal fade" id="modal_delete">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="margin-top:100px;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Are you sure to delete this data ?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-footer" style="margin:0px; border-top:0px; text-align:center;">
+                                        <button type="button" class="btn btn-danger" id="delete_link">Delete</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- /.box -->
                     </div>
                     <!-- /.col -->
@@ -231,6 +252,122 @@ if (isset($_GET['logout'])) {
     </div>
     <!-- ./wrapper -->
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').on('click', '.open_modal', function(e) {
+                var m = $(this).attr("id");
+                $.ajax({
+                    url: "modal_edit.php",
+                    type: "GET",
+                    data: {
+                        id: m,
+                    },
+                    success: function(ajaxData) {
+                        $("#ModalEdit").html(ajaxData);
+                        $("#ModalEdit").modal('show', {
+                            backdrop: 'true'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('body').on('submit', '#form-save', function(e) {
+            e.preventDefault();
+            $.ajax({
+                    method: $(this).attr("method"),
+                    url: $(this).attr("action"),
+                    data: {
+                        item_name: $('#modal-name').val(),
+                        description: $('#description').val(),
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        $("#modal-data").empty();
+                        $("#modal-data").html(response.data);
+                        $("#ModalAdd").modal('hide');
+                        $(".modal-backdrop").hide();
+                    },
+                    error: function(e) {
+                        // Error function here
+                    },
+                    beforeSend: function(b) {
+                        // Before function here
+                    }
+                })
+                .done(function(d) {
+                    // When ajax finished
+                });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('body').on('submit', '#form-update', function(e) {
+            e.preventDefault();
+            $.ajax({
+                    method: $(this).attr("method"),
+                    url: $(this).attr("action"),
+                    data: {
+                        id: $('#edit-id').val(),
+                        item_name: $('#edit-name').val(),
+                        description: $('#edit-description').val(),
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        $("#modal-data").empty();
+                        $("#modal-data").html(response.data);
+                        $("#ModalEdit").modal('hide');
+                    },
+                    error: function(e) {
+                        // Error function here
+                    },
+                    beforeSend: function(b) {
+                        // Before function here
+                    }
+                })
+                .done(function(d) {
+                    // When ajax finished
+                });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('body').on('click', '.delete_modal', function(e) {
+            let modalId = $(this).data('id');
+            $('#modal_delete').modal('show', {
+                backdrop: 'static'
+            });
+            $("#delete_link").on("click", function() {
+                e.preventDefault();
+                $.ajax({
+                        method: 'POST',
+                        url: 'delete.php',
+                        data: {
+                            id: modalId
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            $("#modal-data").empty();
+                            $("#modal-data").html(response.data);
+                            $("#modal_delete").modal('hide');
+
+                        },
+                        error: function(e) {
+                            // Error function here
+                        },
+                        beforeSend: function(b) {
+                            // Before function here
+                        }
+                    })
+                    .done(function(d) {
+                        // When ajax finished
+                    });
+            });
+        });
+    </script>
+    
     <!-- jQuery 3 -->
     <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
