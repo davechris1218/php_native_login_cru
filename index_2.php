@@ -18,7 +18,7 @@ if (isset($_GET['logout'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Item</title>
+    <title>AdminLTE 2 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -48,35 +48,92 @@ if (isset($_GET['logout'])) {
 
 <body class="hold-transition skin-blue sidebar-mini layout-fixed">
 
-    <div class="column-wrapper">
-    <style><?php include 'style.css'; ?></style>
-        <?php
-        while ($row = $result->fetch_assoc()) {
-            display($row['item_image'], $row['item_name'], $row['description'], $row['item_price']);
-        }
+    <div class="wrapper">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="index.php" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>A</b>LT</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Admin</b>LTE</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+
+                    <div class="pull-left">
+
+                        <p><strong>
+                                <font color="white"><?php echo $_SESSION['email']; ?></font>
+                            </strong></p>
+
+                        <a href="index.php?logout='1'">
+                            <font color="red">Sign Out</font>
+                        </a>
+                    </div>
+                </div>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="active treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Menu</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="index.php"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+                            <li><a href="index_2.php"><i class="fa fa-circle-o"></i> Item</a></li>
+                            <li><a href="crud.php"><i class="fa fa-circle-o"></i> Table</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- ./wrapper -->
+
+        <body class="hold-transition skin-blue sidebar-mini layout-fixed">
+
+            <div class="column-wrapper">
+                <style>
+                    <?php include 'style.css'; ?>
+                </style>
+                <?php
+                while ($row = $result->fetch_assoc()) {
+                    display($row['item_image'], $row['item_name'], $row['description'], $row['item_price']);
+                }
 
 
-        function display($image, $name, $description, $price)
-        {
-            echo '<div class="flip-card grid-item">
-            <div class="column">
-            <div class="column">
-            <p>' . $image . '</p>
+                function display($image, $name, $description, $price)
+                {
+                    echo '<div class="flip-card grid-item">
+                        <div class="column">
+                        <div class="column">
+                        <p>' . $image . '</p>
+                        </div>
+                        <div class="column">
+                        <h1> ' . $name . '</h1> 
+                        <p>' . $description . '</p>
+                        <p>' . $price . '</p>
+                        </div>
+                        </div>
+                        </div>';
+                                }
+                ?>
+
             </div>
-            <div class="column">
-            <h1> ' . $name . '</h1> 
-            <p>' . $description . '</p>
-            <p>' . $price . '</p>
-            </div>
-            </div>
-            </div>';
-        }
-        
-        ?>
-
-    </div>
-
-    <!-- ./wrapper -->
 
     <!-- jQuery 3 -->
     <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>

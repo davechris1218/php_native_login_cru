@@ -107,21 +107,142 @@ if (isset($_GET['logout'])) {
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Item List
+                    Table Item Indexes
                 </h1>
             </section>
 
             <!-- Main content -->
             <section class="content">
                 <div class="row">
-                    <div class="col-xs-3">
-                    <!-- insert image grid here-->
-                    </div>
-                    <div class="col-xs-3">
-                    <!-- insert image grid here-->
-                    </div>
-                    <div class="col-xs-3">
-                    <!-- insert image grid here-->
+                    <div class="col-xs-12">
+
+                        <!-- /.box -->
+
+                        <div class="box">
+                            <div class="box-header">
+                                <p class="text-left"><a href="javascript.void(0)" class="btn btn-success" data-target="#ModalAdd" data-toggle="modal">Add Data</a></p>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <table id="datatable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Image</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal-data">
+                                        <?php
+
+                                        include "connect.php";
+                                        $x = 0;
+                                        $modal = mysqli_query($connect, "SELECT * FROM user_item ORDER BY id DESC");
+                                        while ($r = mysqli_fetch_array($modal)) {
+                                            $x++;
+
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $x; ?></td>
+                                                <td><?php echo  $r['item_name']; ?></td>
+                                                <td><?php echo  $r['description']; ?></td>
+                                                <td>
+                                                    <a href="javascript:void(0)" class='open_modal' id='<?php echo  $r['id']; ?>'>Edit</a>
+                                                    <a href="javascript:void(0)" class="delete_modal" data-id='<?php echo  $r['id']; ?>'>Delete</a>
+                                                </td>
+                                            </tr>
+
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                            <div id="ModalAdd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h2 class="modal-title"><strong>Add Data</strong></h2>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form id="form-save" action="save.php" name="modal_popup" enctype="multipart/form-data" method="POST">
+
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    <label for="Name">Name</label>
+                                                    <input type="text" name="item_name" id="item-name" class="form-control" placeholder="Name" required />
+                                                </div>
+
+                                                <div class="row form-group" style="padding-bottom: 20px;">
+                                                    <div class="col-md-3">
+                                                        <label for="Type">Type</label>
+                                                        <br>
+                                                        <select class="form-select form-select-lg mb-3" name="item_type">
+                                                            <option value="Food">Food</option>
+                                                            <option value="Drink">Drink</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    <label for="Description">Description</label>
+                                                    <br>
+                                                    <textarea rows="4" cols="75" name="description"></textarea>
+                                                </div>
+
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    <label for="Price">Price</label>
+                                                    <input type="text" name="item_price" id="item-price" class="form-control" placeholder="Price" required />
+                                                </div>
+
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    <label for="Image">Image</label>
+                                                    <input type="file" name="item_image" accept="image/x-png,image/gif,image/jpeg" />
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-success" type="submit">
+                                                        Save
+                                                    </button>
+
+                                                    <button type="reset" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                        </div>
+
+                        <div class="modal fade" id="modal_delete">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="margin-top:100px;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Are you sure to delete this data ?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-footer" style="margin:0px; border-top:0px; text-align:center;">
+                                        <button type="button" class="btn btn-danger" id="delete_link">Delete</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box -->
                     </div>
                     <!-- /.col -->
                 </div>
