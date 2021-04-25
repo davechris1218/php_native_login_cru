@@ -115,13 +115,33 @@ if (isset($_GET['logout'])) {
             <section class="content">
                 <div class="row">
                     <div class="col-xs-3">
-                    <!-- insert image grid here-->
+                        <?php
+                        $result = array();
+                        while ($fetch =  mysql_fetch_assoc($db)) {
+                            $result[] = $fetch;
+                        }
+                        foreach ($result as $fetch) {
+                        ?>
+                            <div>
+                                <p><?php echo $fetch['item_image']; ?></p>
+                                <br>
+                                <p><?php echo $fetch['item_name']; ?></p>
+                                <br>
+                                <p><?php echo $fetch['item_price']; ?></p>
+                                <br>
+                                <p><?php echo $fetch['description']; ?></p>
+                                <br>
+                                <p><?php echo $fetch['item_type']; ?></p>
+                            </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                     <div class="col-xs-3">
-                    <!-- insert image grid here-->
+                        <!-- insert image grid here-->
                     </div>
                     <div class="col-xs-3">
-                    <!-- insert image grid here-->
+                        <!-- insert image grid here-->
                     </div>
                     <!-- /.col -->
                 </div>
@@ -247,7 +267,7 @@ if (isset($_GET['logout'])) {
             });
         });
     </script>
-    
+
     <!-- jQuery 3 -->
     <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
