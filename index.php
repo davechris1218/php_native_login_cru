@@ -117,7 +117,7 @@ if (isset($_GET['logout'])) {
                     <div class="col-xs-3">
                         <?php
                         $result = array();
-                        while ($fetch =  mysql_fetch_assoc($db)) {
+                        while ($fetch =  mysqli_fetch_assoc($db)) {
                             $result[] = $fetch;
                         }
                         foreach ($result as $fetch) {
