@@ -107,7 +107,7 @@ if (isset($_GET['logout'])) {
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Table Item Indexes
+                    Add/Update Data from table
                 </h1>
             </section>
 
@@ -199,7 +199,7 @@ if (isset($_GET['logout'])) {
                                                 <div class="form-group" style="padding-bottom: 20px;">
                                                     <label for="Price">Price</label>
                                                     <input type="text" name="item_price" id="item-price" class="form-control" placeholder="Price" required />
-                                                </div>
+                                                </div>item_priceitem_priceitem_priceitem_price
 
                                                 <div class="form-group" style="padding-bottom: 20px;">
                                                     <label for="Image">Image</label>
