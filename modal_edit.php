@@ -21,7 +21,7 @@ while ($r = mysqli_fetch_array($modal)) {
 					<div class="form-group" style="padding-bottom: 20px;">
 						<label for="Name">Name</label>
 						<input type="hidden" name="id" id="edit-id" class="form-control" value="<?php echo $r['id']; ?>"/>
-						<input type="text" name="item_name" id="edit-name" class="form-control" value="<?php echo $r['modal_name']; ?>" required />
+						<input type="text" name="item_name" id="edit-name" class="form-control" value="<?php echo $r['item_name']; ?>" required />
 					</div>
 
 					<div class="row form-group" style="padding-bottom: 20px;">
@@ -42,12 +42,12 @@ while ($r = mysqli_fetch_array($modal)) {
 
 					<div class="form-group" style="padding-bottom: 20px;">
 						<label for="Price">Price</label>
-						<input type="text" name="item_price" id="item-price" class="form-control" placeholder="Price" required />
+						<input type="text" name="item_price" id="item-price" class="form-control" value="<?php echo $r['item_price']; ?>" required />
 					</div>
 
 					<div class="form-group" style="padding-bottom: 20px;">
 						<label for="Image">Image</label>
-						<input type="file" name="myImage" accept="image/x-png,image/gif,image/jpeg" />
+						<input type="file" name="myImage" accept="image/x-png,image/gif,image/jpeg" value="<?php echo $r['item_image']; ?>" />
 					</div>
 
 					<div class="modal-footer">
