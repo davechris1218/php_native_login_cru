@@ -116,36 +116,39 @@ if (isset($_GET['logout'])) {
 
                 <section class="content">
                     <div class="column-wrapper">
-                        <style>
-                            <?php include 'style.css'; ?>
-                        </style>
-                        <?php
-                        while ($row = $result->fetch_assoc()) {
-                            display($row['item_image'], $row['item_name'], $row['description'], $row['item_price']);
-                        }
+                        <?php include 'table_server.php'; ?>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Item Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Image</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
+                                <? while ($row = mysqli_fetch_array($query)) {
+                                    echo '<tr>
+                                    <td>' . $row['id'] . '</td>
+                                    <td>' . $row['item_name'] . '</td>
+                                    <td>' . $row['item_type'] . '</td>
+                                    <td>' . $row['description'] . '</td>
+                                    <td>' . number_format($row['item_price'], 0, ',', '.') . '</td>
+                                    <td>' . $row['item_image'] . '</td>
+                                    </tr>';
+                                }
+                                ?>
 
-                        function display($image, $name, $description, $price)
-                        {
-                            echo '<div class="flip-card grid-item">
-                        <div class="column">
-                        <div class="column">
-                        <p>' . $image . '</p>
-                        </div>
-                        <div class="column">
-                        <h1> ' . $name . '</h1> 
-                        <p>' . $description . '</p>
-                        <p>' . $price . '</p>
-                        </div>
-                        </div>
-                        </div>';
-                        }
-                        ?>
+                            </tbody>
+                        </table>
 
                     </div>
 
                 </section>
-                
+
             </div>
 
             <!-- jQuery 3 -->
