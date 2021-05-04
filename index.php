@@ -114,36 +114,27 @@ if (isset($_GET['logout'])) {
             <!-- Main content -->
             <section class="content">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <?php
-                        $result = array();
-                        while ($fetch =  mysqli_fetch_assoc($db)) {
-                            $result[] = $fetch;
-                        }
-                        foreach ($result as $fetch) {
-                        ?>
-                            <div>
-                                <p><?php echo $fetch['item_image']; ?></p>
-                                <br>
-                                <p><?php echo $fetch['item_name']; ?></p>
-                                <br>
-                                <p><?php echo $fetch['item_price']; ?></p>
-                                <br>
-                                <p><?php echo $fetch['description']; ?></p>
-                                <br>
-                                <p><?php echo $fetch['item_type']; ?></p>
-                            </div>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                    <div class="col-xs-3">
-                        <!-- insert image grid here-->
-                    </div>
-                    <div class="col-xs-3">
-                        <!-- insert image grid here-->
-                    </div>
-                    <!-- /.col -->
+                    <?php
+                    $result = array();
+                    while ($fetch =  mysqli_fetch_assoc($db)) {
+                        $result[] = $fetch;
+                    }
+                    foreach ($result as $fetch) {
+                    ?>
+                        <div class="col-xs-3">
+                            <p><?php echo $fetch['item_image']; ?></p>
+                            <br>
+                            <p><?php echo $fetch['item_name']; ?></p>
+                            <br>
+                            <p><?php echo $fetch['item_price']; ?></p>
+                            <br>
+                            <p><?php echo $fetch['description']; ?></p>
+                            <br>
+                            <p><?php echo $fetch['item_type']; ?></p>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <!-- /.row -->
             </section>
