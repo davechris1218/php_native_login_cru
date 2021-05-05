@@ -121,7 +121,7 @@ if (isset($_GET['logout'])) {
                     }
                     foreach ($result as $fetch) {
                     ?>
-                        <div class="col-xs-3">
+                        <div class="col-xs-3" id="datatable" data-target="#ModalAdd" data-toggle="modal">
                             <p><?php echo $fetch['item_image']; ?></p>
                             <br>
                             <p><?php echo $fetch['item_name']; ?></p>
@@ -131,6 +131,7 @@ if (isset($_GET['logout'])) {
                             <p><?php echo $fetch['description']; ?></p>
                             <br>
                             <p><?php echo $fetch['item_type']; ?></p>
+                            <a><button id="form-update">Click here</button></a>
                         </div>
                     <?php
                     }
@@ -221,41 +222,6 @@ if (isset($_GET['logout'])) {
                 .done(function(d) {
                     // When ajax finished
                 });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('body').on('click', '.delete_modal', function(e) {
-            let modalId = $(this).data('id');
-            $('#modal_delete').modal('show', {
-                backdrop: 'static'
-            });
-            $("#delete_link").on("click", function() {
-                e.preventDefault();
-                $.ajax({
-                        method: 'POST',
-                        url: 'delete.php',
-                        data: {
-                            id: modalId
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            $("#modal-data").empty();
-                            $("#modal-data").html(response.data);
-                            $("#modal_delete").modal('hide');
-
-                        },
-                        error: function(e) {
-                            // Error function here
-                        },
-                        beforeSend: function(b) {
-                            // Before function here
-                        }
-                    })
-                    .done(function(d) {
-                        // When ajax finished
-                    });
-            });
         });
     </script>
 
