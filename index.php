@@ -114,9 +114,9 @@ if (isset($_GET['logout'])) {
             <!-- Main content -->
             <section class="content">
                 <div class="row">
-                    <?php
+                    <?php include 'table.server.php';
                     $result = array();
-                    while ($fetch =  mysqli_fetch_assoc($db)) {
+                    while ($fetch =  mysqli_fetch_assoc($query)) {
                         $result[] = $fetch;
                     }
                     foreach ($result as $fetch) {
