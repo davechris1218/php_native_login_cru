@@ -115,9 +115,8 @@ if (isset($_GET['logout'])) {
                 </section>
 
                 <section class="content">
-                    <div class="column-wrapper">
-                        <?php include 'table_server.php'; ?>
-                        <table>
+                    <div class="column-wrapper box-body">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -130,17 +129,25 @@ if (isset($_GET['logout'])) {
                             </thead>
                             <tbody>
 
-                                <? while ($row = mysqli_fetch_array($query)) {
-                                    echo '<tr>
-                                    <td>' . $row['id'] . '</td>
-                                    <td>' . $row['item_name'] . '</td>
-                                    <td>' . $row['item_type'] . '</td>
-                                    <td>' . $row['description'] . '</td>
-                                    <td>' . number_format($row['item_price'], 0, ',', '.') . '</td>
-                                    <td>' . $row['item_image'] . '</td>
-                                    </tr>';
-                                }
+                                <?php
+
+                                include "table_server.php";
+                                $x = 0;
+                                $id = mysqli_query($connect, "SELECT * FROM user_item ORDER BY id DESC");
+                                while ($r = mysqli_fetch_array($id)) {
+                                    $x++;
+
                                 ?>
+                                    <tr>
+                                        <td><?php echo $x; ?></td>
+                                        <td><?php echo  $r['item_name']; ?></td>
+                                        <td><?php echo  $r['item_type']; ?></td>
+                                        <td><?php echo  $r['description']; ?></td>
+                                        <td><?php echo  $r['item_price']; ?></td>
+                                        <td><?php echo  $r['item_image']; ?></td>
+                                    </tr>
+
+                                <?php } ?>
 
                             </tbody>
                         </table>

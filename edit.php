@@ -2,8 +2,11 @@
 	include "connect.php";
 	$userId = $_POST['id'];
 	$itemName = $_POST['item_name'];
-	$description = $_POST['description'];
-	$query=mysqli_query($connect,"UPDATE user_item SET item_name = '$itemName',description = '$description' WHERE id = '$userId'");
+    $itemType = $_POST['item_type'];
+    $description = $_POST['description'];
+    $itemPrice = $_POST['item_price'];
+    $itemImage = $_POST['item_image'];
+	$query=mysqli_query($connect,"UPDATE user_item SET item_name = '$itemName', item_type = '$itemType', description = '$description', item_price = '$itemPrice', item_image = '$itemImage' WHERE id = '$userId'");
 	
 	if($query)
 	{

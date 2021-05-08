@@ -1,8 +1,12 @@
 <?php
     include "connect.php";
     $itemName = $_POST['item_name'];
+    $itemType = $_POST['item_type'];
     $description = $_POST['description'];
-    $query = mysqli_query($connect,"INSERT INTO user_item (modal_name,description) VALUES ('$itemName','$description')");
+    $itemPrice = $_POST['item_price'];
+    $itemImage = $_POST['item_image'];
+    
+    $query = mysqli_query($connect,"INSERT INTO user_item (item_name, item_type, description, item_price, item_image) VALUES ('$itemName', '$itemType', '$description', '$itemPrice', '$itemImage')");
 
     if($query)
     {

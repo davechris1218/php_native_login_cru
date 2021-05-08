@@ -1,7 +1,7 @@
 <?php
-    $db_host = 'localhost'; // Nama Server
-    $db_user = 'nagax21'; // User Server
-    $db_pass = 'Fiorenasitalia1234'; // Password Server
+    $db_host = 'localhost';
+    $db_user = 'nagax21';
+    $db_pass = 'Fiorenasitalia1234';
     $db_name = 'native_login_crud';
 
     $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
@@ -18,6 +18,4 @@
     if (!$query) {
         die ('SQL Error: ' . mysqli_error($conn));
     }
-
-    
-?>    
+?>
