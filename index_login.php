@@ -93,55 +93,42 @@
         <body class="hold-transition skin-blue sidebar-mini layout-fixed">
 
             <div class="content-wrapper">
-
+                <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Table Index
+                        Item Showcase
                     </h1>
                 </section>
 
+                <!-- Main content -->
                 <section class="content">
-                    <div class="column-wrapper box-body">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Item Name</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th>Price</th>
-                                    <th>Image</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <?php
-
-                                include "table_join.php";
-                                $x = 0;
-                                $id = mysqli_query($connect, "SELECT * FROM user_item ORDER BY id DESC");
-                                while ($r = mysqli_fetch_array($id)) {
-                                    $x++;
-
-                                ?>
-                                    <tr>
-                                        <td><?php echo $x; ?></td>
-                                        <td><?php echo  $r['item_name']; ?></td>
-                                        <td><?php echo  $r['item_type']; ?></td>
-                                        <td><?php echo  $r['description']; ?></td>
-                                        <td><?php echo  $r['item_price']; ?></td>
-                                        <td><?php echo  $r['item_image']; ?></td>
-                                    </tr>
-
-                                <?php } ?>
-
-                            </tbody>
-                        </table>
-
+                    <div class="row">
+                        <?php include 'table_join.php';
+                        $result = array();
+                        while ($fetch =  mysqli_fetch_assoc($query)) {
+                            $result[] = $fetch;
+                        }
+                        foreach ($result as $fetch) {
+                        ?>
+                            <div class="col-xs-3">
+                                <p><?php echo $fetch['item_image']; ?></p>
+                                <br>
+                                <p><?php echo $fetch['item_name']; ?></p>
+                                <br>
+                                <p><?php echo $fetch['item_price']; ?></p>
+                                <br>
+                                <p><?php echo $fetch['description']; ?></p>
+                                <br>
+                                <p><?php echo $fetch['item_type']; ?></p>
+                                <a><button>Click for details</button></a>
+                            </div>
+                        <?php
+                        }
+                        ?>
                     </div>
-
+                    <!-- /.row -->
                 </section>
-
+                <!-- /.content -->
             </div>
 
             <!-- jQuery 3 -->
