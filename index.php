@@ -138,6 +138,10 @@ if (isset($_GET['logout'])) {
                     ?>
                 </div>
                 <!-- /.row -->
+                <div id="ModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    
+                </div>
+
             </section>
             <!-- /.content -->
         </div>

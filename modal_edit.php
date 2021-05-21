@@ -20,7 +20,7 @@ while ($r = mysqli_fetch_array($modal)) {
 
 					<div class="form-group" style="padding-bottom: 20px;">
 						<label for="Name">Name</label>
-						<input type="hidden" name="id" id="edit-id" class="form-control" value="<?php echo $r['id']; ?>"/>
+						<input type="hidden" name="id" id="edit-id" class="form-control" value="<?php echo $r['id']; ?>" />
 						<input type="text" name="item_name" id="edit-name" class="form-control" value="<?php echo $r['item_name']; ?>" required />
 					</div>
 
@@ -75,7 +75,6 @@ while ($r = mysqli_fetch_array($modal)) {
 			<?php } ?>
 
 			</div>
-
 
 		</div>
 	</div>
