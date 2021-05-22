@@ -52,16 +52,6 @@ while ($r = mysqli_fetch_array($modal)) {
 
 					<div class="modal-footer">
 						<button class="btn btn-success" type="submit">
-							Save
-						</button>
-
-						<button type="reset" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">
-							Cancel
-						</button>
-					</div>
-
-					<div class="modal-footer">
-						<button class="btn btn-success" type="submit">
 							Update
 						</button>
 
