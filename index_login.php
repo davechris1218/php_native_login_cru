@@ -88,7 +88,9 @@
                     <?php
                     }
                     ?>
-                    <a href="login.php"><span style="display: block;">Click to login</span></a>
+                    <div>
+                         <a href="login.php"><span style="display: block;">Click to login</span></a>
+                    </div>
                 </div>
                 <!-- /.row -->
             </section>
