@@ -83,7 +83,7 @@
                             <p><?php echo $fetch['description']; ?></p>
                             <br>
                             <p><?php echo $fetch['item_type']; ?></p>
-                            <a><button class="userinfo">Click for details</button></a>
+                            <a><button class="userinfo" data-target="#empModal" data-toggle="modal">Click for details</button></a>
                         </div>
                     <?php
                     }
