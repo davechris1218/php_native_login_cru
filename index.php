@@ -121,7 +121,7 @@ if (isset($_GET['logout'])) {
                     }
                     foreach ($result as $fetch) {
                     ?>
-                        <div class="col-xs-3" id="datatable" data-target="#ModalAdd" data-toggle="modal">
+                        <div class="col-4" id="datatable" data-target="#ModalAdd" data-toggle="modal">
                             <p><?php echo $fetch['item_image']; ?></p>
                             <br>
                             <p><?php echo $fetch['item_name']; ?></p>
