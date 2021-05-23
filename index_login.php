@@ -73,7 +73,7 @@
                     }
                     foreach ($result as $fetch) {
                     ?>
-                        <div class="col-xs-3">
+                        <div class="col-4">
                             <p><?php echo $fetch['item_image']; ?></p>
                             <br>
                             <p><?php echo $fetch['item_name']; ?></p>
