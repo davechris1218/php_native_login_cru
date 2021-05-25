@@ -65,34 +65,31 @@
 
             <!-- Main content -->
             <section class="content">
-                <div class="row">
-                    <?php include 'table_join.php';
-                    $result = array();
-                    while ($fetch =  mysqli_fetch_assoc($query)) {
-                        $result[] = $fetch;
-                    }
-                    foreach ($result as $fetch) {
-                    ?>
-                        <div class="col-4">
-                            <p><?php echo $fetch['item_image']; ?></p>
-                            <br>
-                            <p><?php echo $fetch['item_name']; ?></p>
-                            <br>
-                            <p><?php echo $fetch['item_price']; ?></p>
-                            <br>
-                            <p><?php echo $fetch['description']; ?></p>
-                            <br>
-                            <p><?php echo $fetch['item_type']; ?></p>
-                            <a><button class="userinfo" data-target="#empModal" data-toggle="modal">Click for details</button></a>
-                        </div>
-                    <?php
-                    }
-                    ?>
-                    <div>
-                         <a href="login.php"><span style="display: block;">Click to login</span></a>
+                <div class="container">
+                    <div class="row">
+                        <?php include 'table_join.php'; ?>
+                        <form method="GET" action="localhost/php_native_login_crud/ajaxfile.php">
+                            <?php $result = mysqli_query($conn, $sql);
+                            while ($fetch =  mysqli_fetch_assoc($result)) {
+                            ?>
+                                <div class="col-xs-3">
+                                    <?php echo $fetch['item_image']; ?>
+                                    <br>
+                                    <?php echo $fetch['item_name']; ?>
+                                    <br>
+                                    <?php echo $fetch['item_price']; ?>
+                                    <br>
+                                    <?php echo $fetch['description']; ?>
+                                    <br>
+                                    <?php echo $fetch['item_type']; ?>
+                                    <a><button class="userinfo">Click for details</button></a>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                            <a href="login.php"><span style="display: block;">Click to login</span></a>
                     </div>
-                </div>
-                <!-- /.row -->
+                    <!-- /.row -->
             </section>
             <!-- /.content -->
         </div>
