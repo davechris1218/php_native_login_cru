@@ -10,7 +10,7 @@
         die ('Failed to connect database ' . mysqli_connect_error());	
     }
     
-    $sql = 'SELECT * FROM user_item JOIN users ON users.id = user_item.user_id';
+    $sql = 'SELECT * FROM user_item AS a INNER JOIN users AS i ON a.id = i.id';
             
     $query = mysqli_query($conn, $sql);
     
