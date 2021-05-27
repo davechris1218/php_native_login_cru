@@ -2,8 +2,8 @@
 include "table_join.php";
 
 $userid = 0;
-if(isset($_POST['userid'])){
-   $userid = mysqli_real_escape_string($con,$_POST['userid']);
+if(isset($_GET['userid'])){
+   $userid = mysqli_real_escape_string($con,$_GET['userid']);
 }
 $sql = "select * from user_item where id=".$userid;
 $result = mysqli_query($con,$sql);
