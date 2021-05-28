@@ -113,7 +113,7 @@
                                             <br>
                                             <?php echo $fetch['item_type']; ?>
                                             <br>
-                                            <a><button class="userinfo">Click for details</button></a>
+                                            <p class="text-left"><a href="javascript:void(0)" class="btn btn-success userinfo" data-target=".modal-body" data-toggle="modal">Show Details</a></p>
                                         </div>
                                     <?php
                                     }
@@ -175,7 +175,7 @@
 
                     $.ajax({
                         url: 'ajaxfile.php',
-                        type: 'get',
+                        method: 'GET',
                         data: {
                             id: userid
                         },
