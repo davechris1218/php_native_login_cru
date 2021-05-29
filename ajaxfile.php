@@ -6,7 +6,7 @@ if(isset($_GET['userid'])){
    $userid = mysqli_real_escape_string($conn,$_GET['userid']);
 }
 $sql = "select * from user_item where id=".$userid;
-$result = mysqli_query($con,$sql);
+$result = mysqli_query($conn,$sql);
 
 $response = "<table border='0' width='100%'>";
 while( $row = mysqli_fetch_array($result) ){
