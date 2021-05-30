@@ -57,7 +57,7 @@
                 <div class="user-panel">
 
                     <div class="text-center">
-                        <a href="login.php" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#F\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\------------------------------------------------------------------------------F'"><span><u>Click to login</u></span></a>
+                        <a href="login.php" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#FFF'"><span><u>Click to login</u></span></a>
                     </div>
                 </div>
             </section>
@@ -72,10 +72,11 @@
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Item Info</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Item Info</h4>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" id="details">
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -112,7 +113,7 @@
                                             <br>
                                             <?php echo $fetch['item_type']; ?>
                                             <br>
-                                            <p class="text-left"><a href="javascript:void(0)" class="btn btn-success userinfo" data-target=".modal-body" data-toggle="modal">Show Details</a></p>
+                                            <p class="text-left"><a href="javascript:void(0)" class="btn btn-success userinfo" id="<?php echo $row['id']; ?>" data-target=".modal-body" data-toggle="modal">Show Details</a></p>
                                         </div>
                                     <?php
                                     }
@@ -179,7 +180,7 @@
                             id: userid
                         },
                         success: function(response) {
-                            $('.modal-body').html(response);
+                            $('#details').html(response);
                             $('#empModal').modal('show');
                         }
                     });

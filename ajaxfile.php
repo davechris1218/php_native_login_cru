@@ -10,35 +10,28 @@ $result = mysqli_query($conn,$sql);
 
 $response = "<table border='0' width='100%'>";
 while( $row = mysqli_fetch_array($result) ){
- $id = $row['id'];
- $itemName = $row['item_name'];
- $itemType = $row['item_type'];
- $description = $row['description'];
- $itemPrice = $row['item_price'];
- $itemImage = $row['item_image'];
- 
- $response .= "<tr>";
- $response .= "<td>Name : </td><td>".$itemName."</td>";
- $response .= "</tr>";
-
- $response .= "<tr>";
- $response .= "<td>Type : </td><td>".$itemType."</td>";
- $response .= "</tr>";
-
- $response .= "<tr>";
- $response .= "<td>Description : </td><td>".$description."</td>";
- $response .= "</tr>";
-
- $response .= "<tr>";
- $response .= "<td>Price : </td><td>".$itemPrice."</td>";
- $response .= "</tr>";
-
- $response .= "<tr>"; 
- $response .= "<td>Image : </td><td>".$itemImage."</td>"; 
- $response .= "</tr>";
-
-}
-$response .= "</table>";
-
-echo $response;
-exit;
+   $response .= '  
+   <tr>  
+        <td width="30%"><label>Name</label></td>  
+        <td width="70%">'.$row["item_name"].'</td>  
+   </tr>  
+   <tr>  
+        <td width="30%"><label>Type</label></td>  
+        <td width="70%">'.$row["item_type"].'</td>  
+   </tr>  
+   <tr>  
+        <td width="30%"><label>Description</label></td>  
+        <td width="70%">'.$row["description"].'</td>  
+   </tr>  
+   <tr>  
+        <td width="30%"><label>Price</label></td>  
+        <td width="70%">'.$row["item_price"].'</td>  
+   </tr>  
+   <tr>  
+        <td width="30%"><label>Image</label></td>  
+        <td width="70%">'.$row["item_image"].' Year</td>  
+   </tr>  
+   ';
+$response .= "</table>";  
+      echo $response;  
+ }
