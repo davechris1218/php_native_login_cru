@@ -102,19 +102,19 @@
                                     <?php $result = mysqli_query($conn, $sql);
                                     while ($fetch =  mysqli_fetch_assoc($result)) {
                                     ?>
-                                        <div class="col-xs-3">
+                                        <?php echo '<div class="col-xs-3">'; ?>
                                             <?php echo $fetch['item_image']; ?>
-                                            <br>
+                                            <?php echo '<br>'; ?>
                                             <?php echo $fetch['item_name']; ?>
-                                            <br>
+                                            <?php echo '<br>'; ?>
                                             <?php echo $fetch['item_price']; ?>
-                                            <br>
+                                            <?php echo '<br>'; ?>
                                             <?php echo $fetch['description']; ?>
-                                            <br>
+                                            <?php echo '<br>'; ?>
                                             <?php echo $fetch['item_type']; ?>
-                                            <br>
-                                            <p class="text-left"><a href="javascript:void(0)" class="btn btn-success userinfo" id="<?php echo $row['id']; ?>" data-target=".modal-body" data-toggle="modal">Show Details</a></p>
-                                        </div>
+                                            <?php echo '<br>'; ?>
+                                            <?php echo '<button class="btn btn-default userinfo"><a href="javascript:void(0)" data-toggle="modal">Show Details</a></button>'; ?>
+                                        <?php echo '</div>'; ?>
                                     <?php
                                     }
                                     ?>
@@ -175,7 +175,7 @@
 
                     $.ajax({
                         url: 'ajaxfile.php',
-                        method: 'GET',
+                        method: 'POST',
                         data: {
                             id: userid
                         },
