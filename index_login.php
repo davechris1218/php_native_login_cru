@@ -1,3 +1,7 @@
+<?php include 'table_join.php';
+$query = mysqli_query($conn, "SELECT * FROM user_item;");
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -66,7 +70,7 @@
 
         <div class="box">
             <div class="box-body">
-                <div class="modal fade" id="empModal" role="dialog">
+                <div class="modal fade userinfo" role="dialog">
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
@@ -75,8 +79,8 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Item Info</h4>
                             </div>
-                            <div class="modal-body" id="details">
-
+                            <div class="modal-body">
+                                <div class="modal-data"></div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -97,28 +101,24 @@
                     <section class="content">
                         <div class="container">
                             <div class="row">
-                                <?php include 'table_join.php'; ?>
-                                <form method="GET" action="localhost/php_native_login_crud/ajaxfile.php">
-                                    <?php $result = mysqli_query($conn, $sql);
+
+                                <?php if ($result = mysqli_query($conn, $sql)) {
                                     while ($fetch =  mysqli_fetch_assoc($result)) {
-                                    ?>
-                                        <?php echo '<div class="col-xs-3">'; ?>
-                                            <?php echo $fetch['item_image']; ?>
-                                            <?php echo '<br>'; ?>
-                                            <?php echo $fetch['item_name']; ?>
-                                            <?php echo '<br>'; ?>
-                                            <?php echo $fetch['item_price']; ?>
-                                            <?php echo '<br>'; ?>
-                                            <?php echo $fetch['description']; ?>
-                                            <?php echo '<br>'; ?>
-                                            <?php echo $fetch['item_type']; ?>
-                                            <?php echo '<br>'; ?>
-                                            <?php echo '<button class="btn btn-default userinfo"><a href="javascript:void(0)" data-toggle="modal">Show Details</a></button>'; ?>
-                                        <?php echo '</div>'; ?>
-                                    <?php
+                                        $data = "
+                                    <div class='col-xs-3'>
+                                    <p>" . $fetch['item_name'] . "</p>
+                                    <p>" . $fetch['item_type'] . "</p>
+                                    <p>" . $fetch['description'] . "</p>
+                                    <p>" . $fetch['item_price'] . "</p>
+                                    <p>" . $fetch['item_image'] . "</p>
+                                    <button class='btn btn-default'><a href='javascript:void(0)' data-toggle='modal' data-target='.userinfo' data-id=".$row['id'].">Show Details</a></button>
+                                    </div>
+                                    ";
+                                        echo $data;
                                     }
-                                    ?>
-                                </form>
+                                }
+                                ?>
+
                             </div>
                             <!-- /.row -->
                         </div>
@@ -169,19 +169,16 @@
         <script>
             $(document).ready(function() {
 
-                $('.userinfo').click(function() {
+                $('.userinfo').on('show.bs.modal', function(e) {
 
-                    var userid = $(this).data('id');
+                    var userid = $(e.relatedTarget).data('id');
 
                     $.ajax({
                         url: 'ajaxfile.php',
                         method: 'POST',
-                        data: {
-                            id: userid
-                        },
-                        success: function(response) {
-                            $('#details').html(response);
-                            $('#empModal').modal('show');
+                        data: 'userid='+ userid,
+                        success: function(data) {
+                            $('.modal-data').html(data);
                         }
                     });
                 });

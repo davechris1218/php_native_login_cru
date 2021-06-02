@@ -1,37 +1,47 @@
 <?php
 include "table_join.php";
 
-$userid = 0;
-if(isset($_POST['userid'])){
-   $userid = mysqli_real_escape_string($conn,$_POST['userid']);
-}
-$sql = "select * from user_item where id=".$userid;
-$result = mysqli_query($conn,$sql);
+if ($_POST['userid']) {
+     $id = $_POST['userid'];
+     $sql = mysqli_query($conn, "SELECT * from user_item where id='$id'");
+     while ($row = mysqli_fetch_array($sql)) {
+?>
 
-$response = "<table border='0' width='100%'>";
-while( $row = mysqli_fetch_array($result) ){
-   $response .= '  
-   <tr>  
-        <td width="30%"><label>Name</label></td>  
-        <td width="70%">'.$row["item_name"].'</td>  
-   </tr>  
-   <tr>  
-        <td width="30%"><label>Type</label></td>  
-        <td width="70%">'.$row["item_type"].'</td>  
-   </tr>  
-   <tr>  
-        <td width="30%"><label>Description</label></td>  
-        <td width="70%">'.$row["description"].'</td>  
-   </tr>  
-   <tr>  
-        <td width="30%"><label>Price</label></td>  
-        <td width="70%">'.$row["item_price"].'</td>  
-   </tr>  
-   <tr>  
-        <td width="30%"><label>Image</label></td>  
-        <td width="70%">'.$row["item_image"].' Year</td>  
-   </tr>  
-   ';
-$response .= "</table>";  
-      echo $response;  
- }
+          <form method="post">
+               <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Item Name</label>
+                    <div class="col-sm-8">
+                         <input type="text" class="form-control" value="<?php echo $row['item_name']; ?>" name="item_name">
+                    </div>
+               </div>
+               <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Type</label>
+                    <div class="col-sm-8">
+                         <input type="text" class="form-control" value="<?php echo $row['item_type']; ?>" name="item_type">
+                    </div>
+               </div>
+               <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Description</label>
+                    <div class="col-sm-8">
+                         <input type="text" class="form-control" value="<?php echo $row['description']; ?>" name="description">
+                    </div>
+               </div>
+               <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Price</label>
+                    <div class="col-sm-8">
+                         <input type="text" class="form-control" value="<?php echo $row['item_price']; ?>" name="item_price">
+                    </div>
+               </div>
+               <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Image</label>
+                    <div class="col-sm-8">
+                         <input type="text" class="form-control" value="<?php echo $row['item_image']; ?>" name="item_image">
+                    </div>
+               </div>
+               <div class="modal-footer">
+                    <button class="btn btn-danger pull-left" data-dismiss="modal">Close</a></button>
+               </div>
+          </form>
+<?php }
+}
+?>
