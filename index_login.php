@@ -70,7 +70,7 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
 
         <div class="box">
             <div class="box-body">
-                <div class="modal fade userinfo" role="dialog">
+                <div class="modal fade" id="dataModal" role="dialog">
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
@@ -79,8 +79,8 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Item Info</h4>
                             </div>
-                            <div class="modal-body">
-                                <div class="modal-data"></div>
+                            <div class="modal-body" id="modal-data">
+                                
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -111,7 +111,7 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
                                     <p>" . $fetch['description'] . "</p>
                                     <p>" . $fetch['item_price'] . "</p>
                                     <p>" . $fetch['item_image'] . "</p>
-                                    <button class='btn btn-default'><a href='javascript:void(0)' data-toggle='modal' data-target='.userinfo' data-id=".$row['id'].">Show Details</a></button>
+                                    <button class='btn btn-default userinfo'><a href='javascript:void(0)' data-toggle='modal' data-id=".$row['id'].">Show Details</a></button>
                                     </div>
                                     ";
                                         echo $data;
@@ -169,16 +169,17 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
         <script>
             $(document).ready(function() {
 
-                $('.userinfo').on('show.bs.modal', function(e) {
+                $('.userinfo').click(function() {
 
-                    var userid = $(e.relatedTarget).data('id');
+                    var userid = $(this).attr('id');
 
                     $.ajax({
                         url: 'ajaxfile.php',
                         method: 'POST',
-                        data: 'userid='+ userid,
+                        data: {userid: userid},
                         success: function(data) {
-                            $('.modal-data').html(data);
+                            $('#modal-data').html(data);
+                            $('#dataModal').modal('show');
                         }
                     });
                 });
