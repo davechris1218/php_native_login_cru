@@ -106,11 +106,8 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
                                     while ($fetch =  mysqli_fetch_assoc($result)) {
                                         $data = "
                                     <div class='col-xs-3'>
-                                    <p>" . $fetch['item_name'] . "</p>
-                                    <p>" . $fetch['item_type'] . "</p>
-                                    <p>" . $fetch['description'] . "</p>
-                                    <p>" . $fetch['item_price'] . "</p>
                                     <p>" . $fetch['item_image'] . "</p>
+                                    <p>" . $fetch['item_name'] . "</p>
                                     <button class='btn btn-default userinfo'><a href='javascript:void(0)' data-toggle='modal' data-id=".$row['id'].">Show Details</a></button>
                                     </div>
                                     ";

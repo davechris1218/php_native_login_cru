@@ -138,16 +138,14 @@ if (isset($_GET['logout'])) {
                                     $x++;
 
                                 ?>
-                                    <div class="col-xs-3">
-                                        <tr>
-                                            <td><?php echo $x; ?></td>
-                                            <td><?php echo $r['item_name']; ?></td>
-                                            <td><?php echo $r['item_type']; ?></td>
-                                            <td><?php echo $r['description']; ?></td>
-                                            <td><?php echo $r['item_price']; ?></td>
-                                            <td><?php echo $r['item_image']; ?></td>
-                                        </tr>
-                                    </div>
+                                    <tr>
+                                        <td><?php echo $x; ?></td>
+                                        <td><?php echo  $r['item_name']; ?></td>
+                                        <td><?php echo  $r['item_type']; ?></td>
+                                        <td><?php echo  $r['description']; ?></td>
+                                        <td><?php echo  $r['item_price']; ?></td>
+                                        <td><?php echo  $r['item_image']; ?></td>
+                                    </tr>
 
                                 <?php } ?>
 
