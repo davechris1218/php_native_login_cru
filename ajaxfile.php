@@ -1,8 +1,8 @@
 <?php
-if (isset($_POST['userid'])) {
+if (isset($_GET['userid'])) {
      $output = '';
      $connect = mysqli_connect("localhost", "nagax21", "Fiorenasitalia1234", "native_login_crud");
-     $query = "SELECT * FROM user_item WHERE id = '" . $_POST["userid"] . "'";
+     $query = "SELECT * FROM user_item WHERE id = '" . $_GET["userid"] . "'";
      $result = mysqli_query($connect, $query);
      $output .= '  
      <div class="table-responsive">  

@@ -22,7 +22,7 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/dist/css/skins/_all-skins.min.css">
-    <!-- Morris chart -->
+    <!-- Morris chart -->`
     <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/bower_components/morris.js/morris.css">
     <!-- jvectormap -->
     <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/bower_components/morris.js/morris.css">
@@ -172,7 +172,7 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
 
                     $.ajax({
                         url: 'ajaxfile.php',
-                        method: 'POST',
+                        method: 'GET',
                         data: {userid: userid},
                         success: function(data) {
                             $('#modal-data').html(data);
