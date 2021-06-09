@@ -133,7 +133,7 @@ if (isset($_GET['logout'])) {
 
                                 include "table_join.php";
                                 $x = 0;
-                                $id = mysqli_query($conn, "SELECT * FROM user_item AS a INNER JOIN users AS i ON a.id = i.id");
+                                $id = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC");
                                 while ($r = mysqli_fetch_array($id)) {
                                     $x++;
 

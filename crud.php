@@ -138,9 +138,9 @@ if (isset($_GET['logout'])) {
                                     <tbody id="modal-data">
                                         <?php
 
-                                        include "connect.php";
+                                        include "table_join.php";
                                         $x = 0;
-                                        $modal = mysqli_query($connect, "SELECT * FROM user_item AS a INNER JOIN users AS i ON a.id = i.id");
+                                        $modal = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC");
                                         while ($r = mysqli_fetch_array($modal)) {
                                             $x++;
 
@@ -210,7 +210,7 @@ if (isset($_GET['logout'])) {
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button class="btn btn-success" type="submit">
+                                                    <button class="btn btn-success" type="submit" name="upload">
                                                         Save
                                                     </button>
 

@@ -20,3 +20,4 @@
 		$data = array('status'=>'failed', 'data'=> null);
 		echo json_encode($data);
 	}
+?>
