@@ -1,37 +1,45 @@
 <?php
-if (isset($_GET['userid'])) {
-     $output = '';
-     $connect = mysqli_connect("localhost", "nagax21", "Fiorenasitalia1234", "native_login_crud");
-     $query = "SELECT * FROM user_item WHERE id = '" . $_GET["userid"] . "'";
-     $result = mysqli_query($connect, $query);
-     $output .= '  
-     <div class="table-responsive">  
-          <table class="table table-bordered">';
-     while ($row = mysqli_fetch_array($result)) {
-          $output .= '
+$connect = mysqli_connect("localhost", "nagax21", "Fiorenasitalia1234", "native_login_crud");
 
-           <tr>  
-           <td width="30%"><label>Name</label></td>  
-           <td width="70%">' . $row["item_name"] . '</td>  
-      </tr>  
-      <tr>  
-           <td width="30%"><label>Type</label></td>  
-           <td width="70%">' . $row["item_type"] . '</td>  
-      </tr>  
-      <tr>  
-           <td width="30%"><label>Description</label></td>  
-           <td width="70%">' . $row["description"] . '</td>  
-      </tr>  
-      <tr>  
-           <td width="30%"><label>Price</label></td>  
-           <td width="70%">' . $row["item_price"] . '</td>  
-      </tr>  
-      <tr>  
-           <td width="30%"><label>Image</label></td>  
-           <td width="70%">' . $row["item_image"] . ' Year</td>  
-      </tr>  
-      ';
-     }
-     $output .= "</table></div>";
-     echo $output;
+if ($connect->connect_error) {
+     die("Connection failed" . $connect->connect_error);
 }
+
+if ($_POST['id']) {
+     $id = $_POST['id'];
+     $sql = "SELECT * FROM user_item WHERE id = $id";
+     $result = $connect->query($sql);
+     foreach ($result as $row) { ?>
+          <table class="table">
+               <tr>
+                    <td>Item Name/td>
+                    <td>:</td>
+                    <td><?php echo $row['item_name']; ?></td>
+               </tr>
+               <tr>
+                    <td>Type</td>
+                    <td>:</td>
+                    <td><?php echo $row['item_type']; ?></td>
+               </tr>
+               <tr>
+                    <td>Description</td>
+                    <td>:</td>
+                    <td><?php echo $row['description']; ?></td>
+               </tr>
+               <tr>
+                    <td>Price</td>
+                    <td>:</td>
+                    <td><?php echo $row['item_price']; ?></td>
+               </tr>
+               <tr>
+                    <td>Image</td>
+                    <td>:</td>
+                    <td><?php echo $row['item_image']; ?></td>
+               </tr>
+          </table>
+<?php
+
+     }
+}
+$connect->close();
+?>

@@ -172,8 +172,8 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
 
                     $.ajax({
                         url: 'ajaxfile.php',
-                        method: 'GET',
-                        data: {userid: userid},
+                        method: 'POST',
+                        data: {id: userid},
                         success: function(data) {
                             $('#modal-data').html(data);
                             $('#dataModal').modal('show');
