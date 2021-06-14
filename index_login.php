@@ -70,7 +70,6 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
 
         <div class="box">
             <div class="box-body">
-                <form action="ajaxfile.php" method="post">
                 <div class="modal fade" id="dataModal" role="dialog">
                     <div class="modal-dialog">
 
@@ -89,7 +88,6 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
                         </div>
                     </div>
                 </div>
-                </form>
 
                 <div class="content-wrapper">
                     <!-- Content Header (Page header) -->

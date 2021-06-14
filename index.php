@@ -131,8 +131,7 @@ if (isset($_GET['logout'])) {
                             <p><?php echo $fetch['description']; ?></p>
                             <br>
                             <p><?php echo $fetch['item_type']; ?></p>
-                            <br>
-                            <a><button class="btn-success" id="form-update">Click here</button></a>
+                            <a><button id="form-update">Click here</button></a>
                         </div>
                     <?php
                     }
