@@ -115,11 +115,10 @@ if (isset($_GET['logout'])) {
             <section class="content">
                 <div class="row">
                     <?php include 'table_join.php';
-                    $result = array();
-                    while ($fetch =  mysqli_fetch_assoc($query)) {
-                        $result[] = $fetch;
-                    }
-                    foreach ($result as $fetch) {
+                    $x = 0;
+                    $id = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC");
+                    while ($fetch = mysqli_fetch_array($id)) {
+                        $x++;
                     ?>
                         <div class="col-xs-3" id="datatable" data-target="#ModalAdd" data-toggle="modal">
                             <p><?php echo $fetch['item_image']; ?></p>

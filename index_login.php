@@ -1,5 +1,5 @@
 <?php include 'table_join.php';
-$query = mysqli_query($conn, "SELECT * FROM user_item;");
+$query = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC;");
 ?>
 
 <!DOCTYPE html>
@@ -168,12 +168,12 @@ $query = mysqli_query($conn, "SELECT * FROM user_item;");
 
                 $('.userinfo').click(function() {
 
-                    var userid = $(this).attr('id');
+                    var id = $(this).attr('id');
 
                     $.ajax({
+                        type: 'post',
                         url: 'ajaxfile.php',
-                        method: 'POST',
-                        data: {id: userid},
+                        data: 'id='+ id,
                         success: function(data) {
                             $('#modal-data').html(data);
                             $('#dataModal').modal('show');
