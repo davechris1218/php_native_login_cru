@@ -144,7 +144,7 @@ if (isset($_GET['logout'])) {
                                         <td><?php echo $r['item_type']; ?></td>
                                         <td><?php echo $r['description']; ?></td>
                                         <td><?php echo $r['item_price']; ?></td>
-                                        <td><?php echo $r['item_image']; ?></td>
+                                        <td><img src="<?php echo $r['item_image']; ?>" width='50%' height='50%'></td>
                                     </tr>
 
                                 <?php } ?>

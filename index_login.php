@@ -106,7 +106,7 @@ $query = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC;");
                                     while ($fetch =  mysqli_fetch_assoc($result)) {
                                         $data = "
                                     <div class='col-xs-3'>
-                                    <p>" . $fetch['item_image'] . "</p>
+                                    <img src='" . $fetch['item_image'] . "'/>
                                     <p>" . $fetch['item_name'] . "</p>
                                     <button class='btn btn-default userinfo'><a href='javascript:void(0)' data-toggle='modal' data-id=".$row['id'].">Show Details</a></button>
                                     </div>

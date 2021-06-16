@@ -34,7 +34,7 @@ if ($_POST['id']) {
                <tr>
                     <td>Image</td>
                     <td>:</td>
-                    <td><?php echo $row['item_image']; ?></td>
+                    <td><img src="<?php echo $row['item_image']; ?>" width='50%' height='50%'></td>
                </tr>
           </table>
 <?php

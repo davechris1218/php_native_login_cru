@@ -129,7 +129,7 @@ if (isset($_GET['logout'])) {
                             <br>
                             <p><?php echo $fetch['description']; ?></p>
                             <br>
-                            <p><?php echo $fetch['item_type']; ?></p>
+                            <p><img src="<?php echo $fetch['item_type']; ?>" width='50%' height='50%'></p>
                             <a><button id="form-update">Click here</button></a>
                         </div>
                     <?php
