@@ -3,5 +3,5 @@
     $id = $_GET['id'];
     $sql = "DELETE from user_item WHERE id='$id'";    
     $query = mysqli_query($connect, $sql);
-    header("tes_crud.php");
+    header("location: crud.php");
 ?>

@@ -10,7 +10,7 @@
                 <td>'.$row['item_type'].'</td>
                 <td>'.$row['description'].'</td>
                 <td>'.$row['item_price'].'</td>
-                <td>'.$row['item_image'].'</td>
+                <td><img src='.$row['item_image'].'></td>
                 <td>
                     <button type="button" class="btn btn-sm btn-info edit" data-id="'.$row['id'].'">Edit</button>
                     <button type="button" class="btn btn-sm btn-danger delete" data-id="'.$row['id'].'">Delete</button>
