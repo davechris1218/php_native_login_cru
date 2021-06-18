@@ -137,9 +137,25 @@ if (isset($_GET['logout'])) {
                     ?>
                 </div>
                 <!-- /.row -->
-                <div id="ModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    
+                <div class="modal fade" id="dataModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Item Info</h4>
+                            </div>
+                            <div class="modal-body" id="modal-data">
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
 
             </section>
             <!-- /.content -->
@@ -147,84 +163,23 @@ if (isset($_GET['logout'])) {
     </div>
     <!-- ./wrapper -->
 
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
-            $('#datatable').on('click', '.open_modal', function(e) {
-                var m = $(this).attr("id");
+
+            $('#form-update').click(function() {
+
+                var id = $(this).attr('id');
+
                 $.ajax({
-                    url: "modal_edit.php",
-                    type: "GET",
-                    data: {
-                        id: m,
-                    },
-                    success: function(ajaxData) {
-                        $("#ModalEdit").html(ajaxData);
-                        $("#ModalEdit").modal('show', {
-                            backdrop: 'true'
-                        });
+                    type: 'post',
+                    url: 'ajaxfile.php',
+                    data: 'id=' + id,
+                    success: function(data) {
+                        $('#modal-data').html(data);
+                        $('#dataModal').modal('show');
                     }
                 });
             });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('body').on('submit', '#form-save', function(e) {
-            e.preventDefault();
-            $.ajax({
-                    method: $(this).attr("method"),
-                    url: $(this).attr("action"),
-                    data: {
-                        item_name: $('#modal-name').val(),
-                        description: $('#description').val(),
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        $("#modal-data").empty();
-                        $("#modal-data").html(response.data);
-                        $("#ModalAdd").modal('hide');
-                        $(".modal-backdrop").hide();
-                    },
-                    error: function(e) {
-                        // Error function here
-                    },
-                    beforeSend: function(b) {
-                        // Before function here
-                    }
-                })
-                .done(function(d) {
-                    // When ajax finished
-                });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('body').on('submit', '#form-update', function(e) {
-            e.preventDefault();
-            $.ajax({
-                    method: $(this).attr("method"),
-                    url: $(this).attr("action"),
-                    data: {
-                        id: $('#edit-id').val(),
-                        item_name: $('#edit-name').val(),
-                        description: $('#edit-description').val(),
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        $("#modal-data").empty();
-                        $("#modal-data").html(response.data);
-                        $("#ModalEdit").modal('hide');
-                    },
-                    error: function(e) {
-                        // Error function here
-                    },
-                    beforeSend: function(b) {
-                        // Before function here
-                    }
-                })
-                .done(function(d) {
-                    // When ajax finished
-                });
         });
     </script>
 
