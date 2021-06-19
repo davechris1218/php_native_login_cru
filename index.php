@@ -117,34 +117,34 @@ if (isset($_GET['logout'])) {
                     <?php include 'table_join.php';
                     $x = 0;
                     $id = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC");
-                    while ($fetch = mysqli_fetch_array($id)) {
+                    while ($row = mysqli_fetch_array($id)) {
                         $x++;
                     ?>
-                        <div class="col-xs-3" id="datatable" data-target="#ModalAdd" data-toggle="modal">
-                            <p><?php echo $fetch['item_image']; ?></p>
+                        <div class="col-xs-3">
+                            <p><?php echo $row['item_image']; ?></p>
                             <br>
-                            <p><?php echo $fetch['item_name']; ?></p>
+                            <p><?php echo $row['item_name']; ?></p>
                             <br>
-                            <p><?php echo $fetch['item_price']; ?></p>
+                            <p><?php echo $row['item_price']; ?></p>
                             <br>
-                            <p><?php echo $fetch['description']; ?></p>
+                            <p><?php echo $row['description']; ?></p>
                             <br>
-                            <p><img src="<?php echo $fetch['item_type']; ?>" width='50%' height='50%'></p>
-                            <a><button id="form-update">Click here</button></a>
+                            <p><img src="<?php echo $row['item_type']; ?>" width='50%' height='50%'></p>
+                            <a><button class="form-update" data-toggle="modal" data-target="#dataModal" id="'.$row['id'].'">Click here</button></a>
                         </div>
                     <?php
                     }
                     ?>
                 </div>
                 <!-- /.row -->
-                <div class="modal fade" id="dataModal" role="dialog">
+                <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel">
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Item Info</h4>
+                                <h4 class="modal-title" id="dataModalLabel">Item Info</h4>
                             </div>
                             <div class="modal-body" id="modal-data">
                                 
@@ -166,14 +166,14 @@ if (isset($_GET['logout'])) {
     <script>
         $(document).ready(function() {
 
-            $('#form-update').click(function() {
+            $('.form-update').click(function() {
 
                 var id = $(this).attr('id');
 
                 $.ajax({
                     type: 'post',
                     url: 'ajaxfile.php',
-                    data: 'id=' + id,
+                    data: {id:id},
                     success: function(data) {
                         $('#modal-data').html(data);
                         $('#dataModal').modal('show');

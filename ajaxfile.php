@@ -1,45 +1,35 @@
 <?php
-$connect = mysqli_connect("localhost", "nagax21", "Fiorenasitalia1234", "native_login_crud");
+require_once("connect.php");
 
-if ($connect->connect_error) {
-     die("Connection failed" . $connect->connect_error);
+if($_POST['id']){
+	$id = $_POST['id'];
+	$view = $koneksi->query("SELECT * FROM user_item WHERE id='$id'");
+	if($view->num_rows){
+		$row_view = $view->fetch_assoc();
+		echo '
+		<table class="table table-bordered">
+			<tr>
+				<th>Item Name</th>
+				<td>'.$row_view['item_name'].'</td>
+			</tr>
+			<tr>
+				<th>Type</th>
+				<td>'.$row_view['item_type'].'</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>'.$row_view['description'].'</td>
+			</tr>
+               <tr>
+				<th>Price</th>
+				<td>'.$row_view['item_price'].'</td>
+			</tr>
+               <tr>
+				<th>Image</th>
+				<td><img src='.$row_view['item_image'].'></td>
+			</tr>
+		</table>
+		';
+	}
 }
-
-if ($_POST['id']) {
-     $id = $_POST['id'];
-     $sql = "SELECT * FROM user_item WHERE id = $id";
-     $result = $connect->query($sql);
-     foreach ($result as $row) { ?>
-          <table class="table">
-               <tr>
-                    <td>Item Name/td>
-                    <td>:</td>
-                    <td><?php echo $row['item_name']; ?></td>
-               </tr>
-               <tr>
-                    <td>Type</td>
-                    <td>:</td>
-                    <td><?php echo $row['item_type']; ?></td>
-               </tr>
-               <tr>
-                    <td>Description</td>
-                    <td>:</td>
-                    <td><?php echo $row['description']; ?></td>
-               </tr>
-               <tr>
-                    <td>Price</td>
-                    <td>:</td>
-                    <td><?php echo $row['item_price']; ?></td>
-               </tr>
-               <tr>
-                    <td>Image</td>
-                    <td>:</td>
-                    <td><img src="<?php echo $row['item_image']; ?>" width='50%' height='50%'></td>
-               </tr>
-          </table>
-<?php
-
-     }
-}
-$connect->close();
 ?>
