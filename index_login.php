@@ -1,7 +1,3 @@
-<?php include 'table_join.php';
-$query = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC;");
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -80,7 +76,7 @@ $query = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC;");
                                 <h4 class="modal-title">Item Info</h4>
                             </div>
                             <div class="modal-body" id="modal-data">
-                                
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -102,16 +98,20 @@ $query = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC;");
                         <div class="container">
                             <div class="row">
 
-                                <?php if ($result = mysqli_query($conn, $sql)) {
-                                    while ($fetch =  mysqli_fetch_assoc($result)) {
-                                        $data = "
-                                    <div class='col-xs-3'>
-                                    <img src='" . $fetch['item_image'] . "'/>
-                                    <p>" . $fetch['item_name'] . "</p>
-                                    <button class='btn btn-default userinfo'><a href='javascript:void(0)' data-toggle='modal' data-id=".$row['id'].">Show Details</a></button>
-                                    </div>
-                                    ";
-                                        echo $data;
+                                <?php require_once("connect.php");
+                                $query = $connect->query("SELECT * FROM user_item JOIN users ON user_item.user_id = users.id");
+                                if ($query->num_rows) {
+                                    $x = 1;;
+                                    while ($row = $query->fetch_assoc()) {
+                                        echo '
+                                            <div class="col-xs-3">
+                                                <p><img src=' . $row['item_image'] . '></p>
+                                                <br>
+                                                <p>' . $row['item_name'] . '</p>
+                                                <button class="view_data btn btn-md btn-primary" data-toggle="modal" id="' . $row['id'] . '" data-target="#dataModal">Click here</button>
+                                            </div>
+                                            ';
+                                        $x++;
                                     }
                                 }
                                 ?>
@@ -124,64 +124,68 @@ $query = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC;");
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- jQuery 3 -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-        <script>
-            $.widget.bridge('uibutton', $.ui.button);
-        </script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- Morris.js charts -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/raphael/raphael.min.js"></script>
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/morris.js/morris.min.js"></script>
-        <!-- Sparkline -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-        <!-- jvectormap -->
-        <script src="https://adminlte.io/themes/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-        <script src="https://adminlte.io/themes/AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-        <!-- jQuery Knob Chart -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
-        <!-- daterangepicker -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/moment/min/moment.min.js"></script>
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-        <!-- datepicker -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-        <!-- Bootstrap WYSIHTML5 -->
-        <script src="https://adminlte.io/themes/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-        <!-- Slimscroll -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-        <!-- FastClick -->
-        <script src="https://adminlte.io/themes/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
-        <!-- AdminLTE App -->
-        <script src="https://adminlte.io/themes/AdminLTE/dist/js/adminlte.min.js"></script>
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="https://adminlte.io/themes/AdminLTE/dist/js/pages/dashboard.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="https://adminlte.io/themes/AdminLTE/dist/js/demo.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-        <script>
-            $(document).ready(function() {
+            $('.view_data').click(function() {
 
-                $('.userinfo').click(function() {
+                var id = $(this).attr('id');
 
-                    var id = $(this).attr('id');
-
-                    $.ajax({
-                        type: 'post',
-                        url: 'ajaxfile.php',
-                        data: 'id='+ id,
-                        success: function(data) {
-                            $('#modal-data').html(data);
-                            $('#dataModal').modal('show');
-                        }
-                    });
+                $.ajax({
+                    url: 'ajaxfile.php',
+                    method: 'post',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        $('#modal_data').html(data);
+                        $('#dataModal').modal('show');
+                    }
                 });
             });
-        </script>
+        });
+    </script>
+
+    <!-- jQuery 3 -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Morris.js charts -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/raphael/raphael.min.js"></script>
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/morris.js/morris.min.js"></script>
+    <!-- Sparkline -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="https://adminlte.io/themes/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="https://adminlte.io/themes/AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/moment/min/moment.min.js"></script>
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- datepicker -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="https://adminlte.io/themes/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="https://adminlte.io/themes/AdminLTE/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="https://adminlte.io/themes/AdminLTE/dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="https://adminlte.io/themes/AdminLTE/dist/js/demo.js"></script>
+
 </body>
 
 </html>

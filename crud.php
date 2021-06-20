@@ -224,7 +224,7 @@ if (isset($_GET['logout'])) {
                 url: "action_delete.php?id="+id_data,
                 type: "POST",
                 success: function(data){
-                    window.location = "tes_crud.php";
+                    window.location = "crud.php";
                 }
             });
         });

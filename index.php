@@ -114,68 +114,62 @@ if (isset($_GET['logout'])) {
             <!-- Main content -->
             <section class="content">
                 <div class="row">
-                    <?php include 'table_join.php';
-                    $x = 0;
-                    $id = mysqli_query($conn, "SELECT * FROM user_item ORDER BY id ASC");
-                    while ($row = mysqli_fetch_array($id)) {
-                        $x++;
-                    ?>
-                        <div class="col-xs-3">
-                            <p><?php echo $row['item_image']; ?></p>
-                            <br>
-                            <p><?php echo $row['item_name']; ?></p>
-                            <br>
-                            <p><?php echo $row['item_price']; ?></p>
-                            <br>
-                            <p><?php echo $row['description']; ?></p>
-                            <br>
-                            <p><img src="<?php echo $row['item_type']; ?>" width='50%' height='50%'></p>
-                            <a><button class="form-update" data-toggle="modal" data-target="#dataModal" id="'.$row['id'].'">Click here</button></a>
-                        </div>
-                    <?php
+                    <?php require_once("connect.php");
+                    $query = $connect->query("SELECT * FROM user_item ORDER BY id ASC");
+                    if ($query->num_rows) {
+                        $x = 1;;
+                        while ($row = $query->fetch_assoc()) {
+                            echo '
+                                <div class="col-xs-3">
+                                    <p><img src=' . $row['item_image'] . '></p>
+                                    <br>
+                                    <p>' . $row['item_name'] . '</p>
+                                    <button class="view_data btn btn-md btn-primary" data-toggle="modal" id="' . $row['id'] . '" data-target="#dataModal">Click here</button>
+                                </div>
+                                ';
+                            $x++;
+                        }
                     }
                     ?>
                 </div>
-                <!-- /.row -->
-                <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel">
-                    <div class="modal-dialog">
+            </section>
+            <!-- /.row -->
+            <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel">
+                <div class="modal-dialog" role="document">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="dataModalLabel">Item Info</h4>
+                        </div>
+                        <div class="modal-body" id="modal_data">
 
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title" id="dataModalLabel">Item Info</h4>
-                            </div>
-                            <div class="modal-body" id="modal-data">
-                                
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-
-
-            </section>
-            <!-- /.content -->
+            </div>
         </div>
     </div>
     <!-- ./wrapper -->
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function() {
 
-            $('.form-update').click(function() {
+            $('.view_data').click(function() {
 
                 var id = $(this).attr('id');
 
                 $.ajax({
-                    type: 'post',
                     url: 'ajaxfile.php',
-                    data: {id:id},
+                    method: 'post',
+                    data: {
+                        id: id
+                    },
                     success: function(data) {
-                        $('#modal-data').html(data);
+                        $('#modal_data').html(data);
                         $('#dataModal').modal('show');
                     }
                 });
